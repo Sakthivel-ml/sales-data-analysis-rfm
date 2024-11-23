@@ -1,65 +1,57 @@
-# Sales Data Analysis with RFM (Recency, Frequency, Monetary) Analysis
+# Sales Data Analysis with RFM (Recency, Frequency, Monetary) Model
 
-This project involves analyzing sales data to understand customer behavior and sales trends, using SQL and Tableau for data manipulation and visualization. The key analysis performed in this project includes:
+This project analyzes sales data using SQL queries and visualizes the results using Tableau dashboards. The objective is to explore the sales data and segment customers into different groups based on RFM analysis, which helps businesses understand their customer behavior and optimize marketing strategies.
 
-- **Sales Data Analysis**: Aggregating and summarizing sales data by different categories such as product line, year, and deal size.
-- **RFM Analysis**: Segmenting customers based on their recency, frequency, and monetary value of purchases to identify valuable and at-risk customers.
+## SQL Analysis
 
-## Dashboards
+The following analysis was performed using SQL:
 
-This project includes two Tableau dashboards that provide visual insights into the analysis:
+### 1. **Data Preparation**
+   - Created a staging table for sales data.
+   - Converted `ORDERDATE` format to `DATETIME` for easier manipulation.
 
-1. **Sales Overview Dashboard**  
-   This dashboard displays high-level sales metrics, including:
-   - Total revenue by product line, year, and deal size.
-   - Insights into the best-selling months and products, helping to identify sales patterns over time.
+### 2. **Sales Analysis by Product Line, Year, and Deal Size**
+   - Grouped sales data by product line to determine revenue per product category.
+   - Grouped sales data by year to determine revenue trends over time.
+   - Analyzed deal sizes to determine revenue by deal size category.
 
-2. **Customer Segmentation Dashboard**  
-   This dashboard focuses on customer behavior:
-   - RFM analysis, classifying customers into segments such as "High Value Customers," "Potential Churners," and "Lost Customers."
-   - Customer trends based on recency, frequency, and monetary values to help businesses target and retain customers effectively.
+### 3. **Best Month for Sales in 2003**
+   - Identified the best month for sales in 2003 by revenue and frequency of orders.
 
-## Project Files
+### 4. **Best Products Sold in November 2003**
+   - Analyzed the best-selling products for November 2003 based on revenue and order frequency.
 
-The project includes the following key files:
+### 5. **RFM (Recency, Frequency, Monetary) Analysis**
+   - Performed RFM analysis to segment customers:
+     - **Recency**: How recently a customer made a purchase.
+     - **Frequency**: How often a customer makes a purchase.
+     - **Monetary**: How much money a customer spends.
+   - Identified best customers based on RFM scores and classified them into segments like 'High Value Customers', 'Potential Churners', and 'Lost Customers'.
 
-- **SQL Code**: The SQL code for data manipulation, aggregation, and RFM analysis.
-- **Tableau Dashboards**: The Tableau workbooks containing the dashboards.
+### 6. **Frequent Product Bundles**
+   - Identified product bundles that are frequently sold together by analyzing orders with 3 items.
+
+## Tableau Dashboards
+
+The results of this analysis have been visualized using Tableau in two interactive dashboards:
+
+- **Dashboard 1**: Provides insights into sales by product line, deal size, and year. It highlights key trends in revenue over time and identifies top-performing product categories.
   
-## Setup Instructions
+- **Dashboard 2**: Focuses on customer segmentation based on the RFM model. It visualizes the customer distribution across different RFM segments, helping businesses target marketing efforts based on customer behavior.
 
-### 1. Database Setup
-To run the SQL queries, ensure that you have a database set up with the required `sales_data_sample` table. If you are using MySQL:
+You can find the Tableau workbooks [here](./Sales_product_1_Dashboard.twbx) and [here](./Sales_product_2_Dashboard.twbx).
 
-```sql
-CREATE DATABASE project_one;
-USE project_one;
-```
-Then, insert your sales data into the sales_data_sample table, and you can begin running the SQL code for analysis.
-# Tableau Setup
-Import the sales_data_sample data into Tableau to begin creating the dashboards. The dashboards can be customized based on your specific needs.
-# SQL Queries
-This project uses the following SQL queries for analysis:
+## Setup
 
-**Aggregating Sales by Product Line**
-**Grouping Sales by Year**
-**RFM Analysis for Customer Segmentation**
+1. Clone this repository to your local machine.
+2. Ensure you have a MySQL database set up and the `sales_data_sample` table imported.
+3. Run the SQL queries provided in the `SQL_analysis.sql` file.
+4. Open the Tableau workbooks to view the interactive dashboards.
 
-# Example SQL for RFM Analysis:
-```sql
--- IDENTIFYING BEST CUSTOMERS
-SELECT 
-    CUSTOMERNAME, 
-    SUM(SALES) AS MONETARY_VALUES,  
-    AVG(SALES) AS AVG_MONETARY_VALUES,
-    COUNT(ORDERNUMBER) AS Frequency, 
-    MAX(ORDERDATE) AS Last_Order,
-    DATEDIFF(MAX(ORDERDATE), (SELECT MAX(ORDERDATE) FROM sales_data_sample)) AS Recency
-FROM 
-    sales_data_sample_stage
-GROUP BY 
-    CUSTOMERNAME;
-```
-# License
-This project is licensed under the MIT License - see the LICENSE file for details.
+## Future Improvements
+- Add predictive analytics to forecast future sales based on historical data.
+- Implement machine learning models to predict customer churn or identify cross-sell opportunities.
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
